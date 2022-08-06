@@ -4,7 +4,6 @@ Documentation       Orders robots from RobotSpareBin Industries Inc.
 ...                 Saves the screenshot of the ordered robot.
 ...                 Embeds the screenshot of the robot to the PDF receipt.
 ...                 Creates ZIP archive of the receipts and the images.
-...                 Author: www.github.com/joergschultzelutter
 
 Library             RPA.Browser
 Library             OperatingSystem
@@ -72,7 +71,6 @@ Get The Program Author Name From Our Vault
     Log    ${secret}[whowrotethis] is the author of this file    console=Yes
 
 Get Orders
-    #Download    url=${csv_url}    target_file=${orders_file}    overwrite=True
     Download    ${csv_url}    overwrite=True
     ${table}=    Read table from CSV    ${orders_file}    header=True
     RETURN    ${table}
@@ -95,7 +93,6 @@ Fill the from
     Set Local Variable    ${input_address}    //*[@id="address"]
     Set Local Variable    ${btn_preview}    //*[@id="preview"]
     Set Local Variable    ${btn_order}    //*[@id="order"]
-    #Set Local Variable    ${img_preview}    //*[@id="robot-preview-image"]
 
     Wait Until Element Is Visible    ${input_head}
     Wait Until Element Is Enabled    ${input_head}
@@ -154,13 +151,11 @@ Embed the robot screenshot to the receipt PDF file
     [Arguments]    ${IMG_FILE}    ${PDF_FILE}
     Log To Console    Printing Embedding image ${IMG_FILE} in pdf file ${PDF_FILE}
     Open Pdf    ${PDF_FILE}
-    # Create the list of files that is to be added to the PDF (here, it is just one file)
     @{myfiles}=    Create List    ${IMG_FILE}:x-0,y=0
     Add Files To Pdf    ${myfiles}    ${PDF_FILE}    ${True}
     Close PDF    ${PDF_FILE}
 
 Go to order another robot
-    # Define local variables for the UI elements
     Set Local Variable    ${btn_order_another_robot}    //*[@id="order-another"]
     Click Button    ${btn_order_another_robot}
 

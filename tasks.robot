@@ -4,7 +4,6 @@ Documentation       Orders robots from RobotSpareBin Industries Inc.
 ...                 Saves the screenshot of the ordered robot.
 ...                 Embeds the screenshot of the robot to the PDF receipt.
 ...                 Creates ZIP archive of the receipts and the images.
-...                 Author: www.github.com/joergschultzelutter
 
 Library             RPA.Browser.Selenium    auto_close=${False}
 Library             OperatingSystem
@@ -155,7 +154,6 @@ Embed the robot screenshot to the receipt PDF file
     [Arguments]    ${IMG_FILE}    ${PDF_FILE}
     Log To Console    Printing Embedding image ${IMG_FILE} in pdf file ${PDF_FILE}
     Open Pdf    ${PDF_FILE}
-    # Create the list of files that is to be added to the PDF (here, it is just one file)
     #@{myfiles}=    Create List    ${IMG_FILE}:x=2,y=2
     @{myfiles}=    Create List    ${IMG_FILE}:align=center
 
@@ -164,7 +162,6 @@ Embed the robot screenshot to the receipt PDF file
     #Close PDF    ${PDF_FILE}
 
 Go to order another robot
-    # Define local variables for the UI elements
     Set Local Variable    ${btn_order_another_robot}    //*[@id="order-another"]
     Click Button    ${btn_order_another_robot}
 
@@ -172,8 +169,6 @@ Log Out And Close The Browser
     Close Browser
 
  Create a ZIP file of the receipts
-    #Archive Folder With Zip    ${pdf_folder}    ${zip_file}    recursive=True    include=*.pdf
-    #${file1}=D:\RoboCorp\Certificate-level-II-Build-a-robot\pdf_files
     Archive Folder With zip    ${pdf_folder}    ${zip_file}    recursive=True    include=*.pdf
 
 Get The User Name
